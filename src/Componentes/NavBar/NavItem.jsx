@@ -1,7 +1,13 @@
-export default function NavItem({href, children}){
+import { Link} from 'react-router-dom'
+
+ function NavItem({to, children}){
     return(
         <li>
-            <a href={href}>{children}</a>
-        </li>
+            <Link className='nav-link' to={href}>
+                {children}
+            </Link>
+        </li>    
     )
 }
+
+export default NavItem;

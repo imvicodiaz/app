@@ -1,29 +1,22 @@
 import CardWidget from "./CardWidget";
 import NavItem from "./NavItem";
+import {Link } from 'react-router-dom'
 
 export default function NavBar(){
-    const links = [
-        {title: 'remeras', url: '/remeras'},
-        {title: 'pantalones', url: '/remeras'}
-
-        
-    ]
     return(
         <nav>
             <ul>
-                <NavItem href='/'>Logo tienda</NavItem>
-                {links.map((elemento) => {
-                return(
-                      <NavItem key={elemento.title} href={elemento.url}>
-                        {elemento.title}
-                      </NavItem>
-                );
-                 })}       
-            </ul>
-            {/* <CardWidget/>  */}
-            <span class="jam jam-shopping-cart"></span>
+                <NavItem to='/'>Logo tienda</NavItem>
 
-            
+                <Link to='/category/remera'>Remera</Link>
+                <Link to='/category/jean'>Jean</Link>
+                <Link to='/category/zapas'>Zapas</Link>
+                <Link to='/Cart'>
+                   <span class="jam jam-shopping-cart"></span> 
+                </Link>
+                
+            </ul>
+            {/* <CardWidget/>  */}  
         </nav>
     )
 }

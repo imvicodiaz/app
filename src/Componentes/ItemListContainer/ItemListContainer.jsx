@@ -1,29 +1,38 @@
 import { useState, useEffect } from "react";
+import {useParams} from 'react-router-dom'
 
-import Flex from "../Flex/Flex"
 import Item from "./Item"
 import './../../services/mockServices.js'
-import obtenerProductos  from "./../../services/mockServices.js";
-import Promise from './../../services/mockServices'
+import obtenerProductos, { getProductoByCategory } from "./../../services/mockServices.js";
+import Flex from "../Flex/Flex";
+
 
 export default function ItemListContainer(){
     const [products, setProducts] = useState([]);
+    let {categoryid} = useParams();
 
-    console.log('%cReenderizando ItemListContainer');
 
     useEffect(() => {
-        obtenerProductos().then((respuesta) =>{
+        if (!categoryid){
+        obtenerProductos()
+        .then((respuesta) =>{
             setProducts(respuesta);
-        });
-    }, []);
- 
-    return(
-    <>
-    {
-        products.map((itemIterado)=>{
-            return <Item key={itemIterado.id} item={itemIterado} />
         })
-    }
-    </>
+        .catch((error) => alert(error));
+        }
+        else{
+            getProductoByCategory(categoryid)
+            .the((respuesta) =>{
+                setProducts(respuesta);
+            })
+        }
+    }, [categoryid]);
+    return(
+    
+        <Flex>
+        {products.map((itemIterado)=>{
+            return <Item key={itemIterado.id} item={itemIterado} />   
+        })}
+    </Flex>
     )
 }
